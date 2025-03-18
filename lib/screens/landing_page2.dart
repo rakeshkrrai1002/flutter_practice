@@ -1,30 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:qwerty/screens/landing_page2.dart';
-import 'package:qwerty/screens/signin_screen.dart';
+import 'landing_page3.dart'; // Import the LandingPage3 file
+import 'signin_screen.dart'; // Import the SigninScreen file
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'EEZTOUR',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: SplashScreen(),
-    );
-  }
-}
-
-class SplashScreen extends StatelessWidget {
+class LandingPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,64 +10,57 @@ class SplashScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Status bar spacing
-            SizedBox(height: 10),
-
-            // App name
+            // Top section with skip button
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'EEZ',
-                        style: TextStyle(
-                          color: Color(0xFFE05D4E),
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'TOUR',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      // Navigate to SigninScreen when Skip is pressed
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => signinScreen()),
+                      );
+                    },
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(color: Colors.grey, fontSize: 16),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
 
-            // Logo and main content
+            // Center image section
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Z Logo from assets
+                  // Main illustration image
                   Container(
-                    width: 100,
-                    height: 100,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    width: double.infinity,
                     child: Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/img_1.png',
                       fit: BoxFit.contain,
                     ),
                   ),
 
-                  SizedBox(height: 30),
+                  SizedBox(height: 40),
 
-                  // Tagline
+                  // Text content
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32.0),
                     child: Text(
-                      'Smart Travel Solutions for Smarter Agents!',
+                      'Confidently Run Your Travel Business\n— One Platform, Total Control!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -102,6 +73,7 @@ class SplashScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // First dot - red
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 4),
                   width: 8,
@@ -111,15 +83,17 @@ class SplashScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                 ),
+                // Second dot - active, red
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 4),
                   width: 8,
                   height: 8,
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
+                    color: Color(0xFFE05D4E),
                     shape: BoxShape.circle,
                   ),
                 ),
+                // Third dot - inactive, grey
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 4),
                   width: 8,
@@ -143,22 +117,22 @@ class SplashScreen extends StatelessWidget {
 
             SizedBox(height: 20),
 
-            // Get Started Button
+            // Next Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigate to landingPage2
+                  // Navigate to LandingPage3
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LandingPage2()),
+                    MaterialPageRoute(builder: (context) => LandingPage3()),
                   );
                 },
-                child: Text('Get Started'),
+                child: Text('Next'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFE05D4E),
                   foregroundColor: Colors.white,
-                  minimumSize: Size(double.infinity, 50),
+                  minimumSize: Size(150, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -175,7 +149,7 @@ class SplashScreen extends StatelessWidget {
                 Text('Have an account? '),
                 GestureDetector(
                   onTap: () {
-                    // Navigate to login page
+                    // Navigate to SigninScreen
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => signinScreen()),
